@@ -7,7 +7,7 @@ const tasksRouter = express.Router();
 
 tasksRouter.get("/", getTasks);
 
-tasksRouter.post("/",body('title', 'description').notEmpty(), createTask);
+tasksRouter.post("/",body('title').trim().notEmpty(),body('description').trim().notEmpty().isLength({ min: 20, max:200 }), createTask);
 
 
 module.exports = tasksRouter;

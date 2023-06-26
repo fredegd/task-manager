@@ -2,10 +2,13 @@
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 export default function CreateTask() {
-  const notify = () => toast("Wow so easy!");
+  const notifyCreation = () => toast("Task was Created");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -22,7 +25,7 @@ export default function CreateTask() {
       .then((response) => {
         console.log("Added new item Successfully:", response.data);
         reset();
-        // navigate(`/books`)
+        setTimeout(navigate(`/tasks`),2500)
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -36,10 +39,7 @@ export default function CreateTask() {
   return (
     <div>
       <h1>CreateTask</h1>
-      {/* <button onClick={notify}>Notify!</button>
-      <ToastContainer /> */}
-      {/*  */}
-      {/*  */}
+      <ToastContainer />
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* register your input into the hook by invoking the "register" function */}
         <input
@@ -65,7 +65,7 @@ export default function CreateTask() {
         {/* errors will return when field validation fails  */}
         {errors.exampleRequired && <p>This field is required</p>}
 
-        <input type="submit" value={"Submit"} />
+        <input type="submit" value={"Submit"} onClick={notifyCreation}/>
       </form>
     </div>
   );
